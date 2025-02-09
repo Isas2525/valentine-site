@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Will you be my Valentine?</title>
+    <style>
+        body {
+            background: linear-gradient(120deg, #ff9a9e, #fad0c4);
+            text-align: center;
+            font-family: 'Arial', sans-serif;
+            overflow: hidden;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        h1 {
+            color: #ff4d6d;
+            font-size: 3em;
+            animation: heartbeat 1.5s infinite alternate;
+        }
+        .buttons {
+            margin-top: 20px;
+        }
+        .btn {
+            font-size: 1.5em;
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: transform 0.3s ease-in-out;
+        }
+        .yes {
+            background-color: #ff4d6d;
+            color: white;
+        }
+        .no {
+            background-color: #444;
+            color: white;
+        }
+        .heart {
+            color: red;
+            font-size: 2em;
+            position: absolute;
+            animation: floatUp 5s infinite ease-in-out, rotate 3s infinite linear;
+        }
+        @keyframes floatUp {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100vh); opacity: 0; }
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.1); }
+        }
+    </style>
+</head>
+<body>
+    <h1>Will you be my Valentine chooti patiya? ❤️</h1>
+    <div class="buttons">
+        <button class="btn yes" id="yes">Yes</button>
+        <button class="btn no" id="no">No</button>
+    </div>
+    <script>
+        const yesBtn = document.getElementById("yes");
+        const noBtn = document.getElementById("no");
+        let yesSize = 1.5;
+        let noSize = 1;
+        
+        noBtn.addEventListener("click", () => {
+            yesSize += 0.2;
+            noSize -= 0.1;
+            yesBtn.style.transform = `scale(${yesSize})`;
+            noBtn.style.transform = `scale(${noSize})`;
+            if (noSize <= 0) {
+                noBtn.style.display = "none";
+            }
+        });
+        
+        yesBtn.addEventListener("click", () => {
+            document.body.innerHTML = '<h1>Yay! 💖 Can\'t wait for our date!</h1>';
+        });
+        
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.className = "heart";
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+            
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.top = "100vh";
+            heart.style.animationDuration = Math.random() * 3 + 2 + "s";
+            
+            setTimeout(() => {
+                heart.remove();
+            }, 5000);
+        }
+        setInterval(createHeart, 500);
+    </script>
+</body>
+</html>
